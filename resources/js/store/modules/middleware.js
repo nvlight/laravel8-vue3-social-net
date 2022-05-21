@@ -4,7 +4,6 @@ const state = {
         isSubscribed: false,
         token: !localStorage.getItem('token' || ''),
     },
-    //token: localStorage.getItem('token' || ''),
 }
 
 const actions = {

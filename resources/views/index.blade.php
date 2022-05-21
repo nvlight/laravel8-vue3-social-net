@@ -11,7 +11,7 @@
 <body>
     <div id="app">
         <router-view></router-view>
-        <example-component></example-component>
+{{--        <example-component></example-component>--}}
     </div>
 
     <script src="{{mix('js/app.js')}}"></script>
