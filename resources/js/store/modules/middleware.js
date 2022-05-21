@@ -2,8 +2,9 @@ const state = {
     user: {
         loggedIn: false,
         isSubscribed: false,
+        token: !localStorage.getItem('token' || ''),
     },
-    token: localStorage.getItem('token' || ''),
+    //token: localStorage.getItem('token' || ''),
 }
 
 const actions = {
@@ -24,7 +25,7 @@ const getters = {
 }
 
 export default {
-    namespaced: true,
+    namespaced: false,
     state,
     actions,
     getters,
