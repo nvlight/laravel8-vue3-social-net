@@ -2,10 +2,11 @@
     <div>
         <div class="login-register">
             <form action="" class="form">
+                <my-input type="text" placeholder="user name" v-model="user.name" />
                 <my-input type="text" placeholder="email address" v-model="user.email" />
                 <my-input type="text" placeholder="password" v-model="user.password" />
                 <my-input type="text" placeholder="password confirm" v-model="user.password_confirmation" />
-                <my-button type="submit">register</my-button>
+                <my-button type="submit" @click.prevent="register" >register</my-button>
                 <router-link to="/login">
                     <p class="message">Already registered? <a href="#">Sign in</a></p>
                 </router-link>
@@ -20,10 +21,16 @@ export default {
     data(){
         return {
             user: {
+                name: "",
                 email: "",
                 password: "",
                 password_confirmation: "",
             }
+        }
+    },
+    methods: {
+        register(){
+            this.$store.dispatch('auth/registerUser', this.user)
         }
     }
 }

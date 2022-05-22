@@ -64,7 +64,7 @@ class AuthController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Registration succeeded'
-        ], 500);
+        ], 200);
 
     }
 }
