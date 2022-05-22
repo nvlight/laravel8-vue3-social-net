@@ -34,9 +34,9 @@ const routes = [
         path: "/dashboard",
         name: Dashboard,
         component: Dashboard,
-        // meta: {
-        //     middleware: [Middleware.auth]
-        // },
+        meta: {
+            middleware: [Middleware.auth]
+        },
     },
     {
         path: "/dashboard/user-profile",

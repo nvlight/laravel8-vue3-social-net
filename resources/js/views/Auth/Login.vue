@@ -18,6 +18,9 @@ import MyButton from "../../components/ui/MyButton";
 export default {
     name: "Login",
     components: {MyButton},
+    created() {
+        this.checkUserState();
+    },
     data(){
         return {
             user: {
@@ -29,8 +32,13 @@ export default {
     methods: {
         login(){
             this.$store.dispatch('auth/loginUser', this.user)
-        }
-    }
+        },
+        checkUserState(){
+            this.$store.dispatch('auth/setLoggedInstate', this.user);
+        },
+    },
+
+
 }
 </script>
 
