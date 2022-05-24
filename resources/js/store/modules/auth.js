@@ -3,11 +3,13 @@ import axios from "axios";
 const state = {
     userDetails: {},
     isLoggedIn: true,
+    errors: [],
+    invalidCredentials: '',
 }
 
 const actions = {
 
-    registerUser({}, user){
+    registerUser(ctx, user){
         return new Promise((resolve, reject) => {
             axios
                 .post(
@@ -26,7 +28,10 @@ const actions = {
                     }
                 })
                 .catch( (error) => {
-                    reject(error)
+                    //reject(error)
+                    if(error.response.status === 422){
+                        ctx.commit('setErrors', error.response.data.errors)
+                    }
                 })
         });
     },
@@ -44,7 +49,13 @@ const actions = {
                     }
                 })
                 .catch( (error) => {
-                    reject(error)
+                    //reject(error)
+                    //console.log(error.response)
+                    if (error.response.data.error){
+                        ctx.commit('setInvalidCredentials', error.response.data.error)
+                    }else if(error.response.status === 422){
+                        ctx.commit('setErrors', error.response.data.errors)
+                    }
                 })
         })
     },
@@ -73,6 +84,12 @@ const actions = {
 const mutations = {
     setLoggedIn(state, payload){
         state.isLoggedIn = payload;
+    },
+    setErrors(state, errors){
+        state.errors = errors
+    },
+    setInvalidCredentials(state, invalidCredentials){
+        state.invalidCredentials = invalidCredentials
     }
 }
 
@@ -82,6 +99,12 @@ const getters = {
     },
     userDetails(state){
         return state.userDetails;
+    },
+    errors(state){
+        return state.errors
+    },
+    invalidCredentials(state){
+        return state.invalidCredentials;
     }
 }
 

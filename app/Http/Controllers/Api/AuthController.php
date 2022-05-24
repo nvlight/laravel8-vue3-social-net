@@ -42,9 +42,8 @@ class AuthController extends Controller
         }
 
         return response()->json([
-            'message' => ' Unathenticated',
-            'success' => false,
-        ]);
+            'error' => 'Invalid credintials',
+        ], 401);
     }
 
     public function register(Request $request)

@@ -1,5 +1,6 @@
 <template>
     <div>
+        <validation-errors v-if="validationErrors" :errors="validationErrors"></validation-errors>
         <div class="login-register">
             <form action="" class="form">
                 <my-input type="text" placeholder="user name" v-model="user.name" />
@@ -16,6 +17,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
     name: "Register",
     data(){
@@ -28,6 +30,11 @@ export default {
             }
         }
     },
+    computed: {
+        ...mapGetters({
+            validationErrors: 'auth/errors'
+        })
+    },
     methods: {
         register(){
             this.$store.dispatch('auth/registerUser', this.user)
@@ -36,7 +43,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
     .login-register{
         width: 360px;
         padding: 8% 0 0;
@@ -49,7 +56,7 @@ export default {
         z-index: 1;
         background-color: var(--color-gray-dark-1);
         background-image: linear-gradient(rgba(#101d2c, .93), rgba(#101d2c, .93)), url(/../../../img/book.jpg);
-    //background-image: linear-gradient(rgba(#101d2c, .93), rgba(#101d2c, .93)), url(/../../../img/book.jpg);
+        //background-image: linear-gradient(rgba(#101d2c, .93), rgba(#101d2c, .93)), url(/../../../img/book.jpg);
         background-position: center;
         max-width: 360px;
         margin: 0 auto 100px;
