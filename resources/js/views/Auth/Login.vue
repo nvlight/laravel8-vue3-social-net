@@ -14,6 +14,9 @@
                 <router-link to="/register">
                     <p class="message">Not registered? <a href="#">Create an account</a></p>
                 </router-link>
+                <router-link to="/forgot-password">
+                    <p class="message">Forgot password? <a href="#">Reset password</a></p>
+                </router-link>
             </form>
         </div>
     </div>

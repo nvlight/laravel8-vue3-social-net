@@ -7,6 +7,8 @@ import UserProfile from "../views/pages/UserProfile";
 import Middleware from "../middleware";
 import store from "../store";
 import middlewarePipeline from "./middlewarePipeline";
+import ForgotPassword from "../views/Auth/ForgotPassword";
+import ResetPassword from "../views/Auth/ResetPassword";
 
 const routes = [
     {
@@ -26,6 +28,22 @@ const routes = [
         path: "/register",
         name: Register,
         component: Register,
+        // meta: {
+        //     middleware: [Middleware.guest]
+        // }
+    },
+    {
+        path: "/forgot-password",
+        name: ForgotPassword,
+        component: ForgotPassword,
+        // meta: {
+        //     middleware: [Middleware.guest]
+        // }
+    },
+    {
+        path: "/reset-password",
+        name: ResetPassword,
+        component: ResetPassword,
         // meta: {
         //     middleware: [Middleware.guest]
         // }

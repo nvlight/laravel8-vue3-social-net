@@ -1,4 +1,5 @@
 import axios from "axios";
+import {resolveComponent} from "vue";
 
 const state = {
     userDetails: {},
@@ -78,6 +79,28 @@ const actions = {
             ctx.commit('setLoggedIn', false);
             resolve(false)
         })
+    },
+
+    forgotPassword(ctx, user){
+        return new Promise( (resolve, reject) => {
+            axios
+                .post('/api/forgot-password', {
+                    email: user.email,
+                })
+                .then( response => {
+                  if (response.data){
+                      window.location.replace('/login')
+                      resolve(response)
+                  }else{
+                      reject(response)
+                  }
+                })
+                .catch( (error) => {
+                    if (error.response.status === 422){
+                        ctx.commit('setErrors', error.response.data.errors)
+                    }
+                })
+        });
     }
 }
 

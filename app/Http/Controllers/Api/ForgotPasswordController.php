@@ -11,11 +11,11 @@ class ForgotPasswordController extends Controller
 {
     public function sendResetLinkEmail(Request $request){
         $validator = Validator::make($request->all(),[
-            'email' => 'required|string|email|max:255',
+            'email' => 'required|string|email|max:255|exists:users',
         ]);
         if ($validator->fails()){
             return response()->json(
-                ['error' => $validator->errors()->all()], 422);
+                ['errors' => $validator->errors()->all()], 422);
         }
 
         $response = $this->broker()->sendResetLink(
@@ -36,6 +36,6 @@ class ForgotPasswordController extends Controller
     }
 
     protected function sendResetLinkFailedResponse(Request $request, $response){
-        return response()->json(['message' => 'Failed to send email', 'response' => $response]);
+        return response()->json(['error' => 'Not such a user', 'response' => $response]);
     }
 }
