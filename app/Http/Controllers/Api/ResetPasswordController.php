@@ -14,13 +14,14 @@ class ResetPasswordController extends Controller
 {
     public function reset(Request $request){
         $validator = Validator::make($request->all(),[
-            'email'    => 'required|string|email|max:255',
+            //'email'    => 'required|string|email|max:255',
+            'email' => 'required|string|email|max:255|exists:users',
             'password' => 'required|confirmed|between:8,255',
             'token'    => 'required',
         ]);
         if ($validator->fails()){
             return response()->json(
-                ['error' => $validator->errors()->all()], 422);
+                ['errors' => $validator->errors()->all()], 422);
         }
 
         $response = $this->broker()->reset(
@@ -64,7 +65,7 @@ class ResetPasswordController extends Controller
 
     protected function sendResetFailedResponse(Request $request, $response){
         return response()->json(
-            ['message' => 'Password reset failed',
+            ['error' => 'Password was already changed!',
              'response' => $response],
             500
         );

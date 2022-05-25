@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <div class="alert" v-if="invalidCredentials">
             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
             Invalid Credentials
@@ -52,7 +51,6 @@ export default {
             this.$store.dispatch('auth/setLoggedInstate', this.user);
         },
     },
-
 
 }
 </script>

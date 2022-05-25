@@ -81,12 +81,10 @@ const actions = {
         })
     },
 
-    forgotPassword(ctx, user){
+    resetPassword(ctx, payload){
         return new Promise( (resolve, reject) => {
             axios
-                .post('/api/forgot-password', {
-                    email: user.email,
-                })
+                .post('/api/reset-password', payload)
                 .then( response => {
                   if (response.data){
                       window.location.replace('/login')
@@ -94,6 +92,30 @@ const actions = {
                   }else{
                       reject(response)
                   }
+                })
+                .catch( (error) => {
+                    if (error.response.status === 422){
+                        ctx.commit('setErrors', error.response.data.errors)
+                    }
+                })
+        });
+    },
+
+    forgotPassword(ctx, user){
+        return new Promise( (resolve, reject) => {
+            axios
+                .post('/api/forgot-password', {
+                    email: user.email,
+                    password: user.password,
+                    password_confirmation: user.password_confirmation,
+                })
+                .then( response => {
+                    if (response.data){
+                        window.location.replace('/login')
+                        resolve(response)
+                    }else{
+                        reject(response)
+                    }
                 })
                 .catch( (error) => {
                     if (error.response.status === 422){
