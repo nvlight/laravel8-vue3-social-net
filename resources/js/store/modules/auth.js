@@ -1,4 +1,5 @@
-import axios from "axios";
+//import axios from "axios";
+import axios from "../../../axios/axios-instance";
 import {resolveComponent} from "vue";
 
 const state = {
@@ -44,6 +45,7 @@ const actions = {
                 .then( response => {
                     if (response.data.access_token) {
                         localStorage.setItem('token', response.data.access_token)
+                        ctx.commit('auth/setLoggedIn', true);
                         window.location.replace('/dashboard')
                     }else{
                         reject(response)
@@ -101,6 +103,17 @@ const actions = {
         });
     },
 
+    currentUser(ctx, user){
+        return new Promise( (resolve, reject) => {
+            axios.get('user')
+                .then( (response) => {
+                    ctx.commit('setCurrentUser', response.data.data)
+                }).catch( (error) => {
+                    reject(error)
+                })
+        })
+    },
+
     forgotPassword(ctx, user){
         return new Promise( (resolve, reject) => {
             axios
@@ -135,6 +148,9 @@ const mutations = {
     },
     setInvalidCredentials(state, invalidCredentials){
         state.invalidCredentials = invalidCredentials
+    },
+    setCurrentUser(state, payload){
+        state.userDetails = payload;
     }
 }
 

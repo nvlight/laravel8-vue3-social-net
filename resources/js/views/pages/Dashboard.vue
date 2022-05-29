@@ -28,6 +28,9 @@ export default {
 
         }
     },
+    mounted(){
+        this.$store.dispatch("auth/currentUser")
+    },
     computed:{
         ...mapGetters({
             loggedIn: 'auth/loggedIn'
