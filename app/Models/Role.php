@@ -20,5 +20,11 @@ class Role extends Model
         return $this->permissions()->whereIn('slub', $permissions)->count();
     }
 
+    public function scopeDeveloper($query){
+        return $query->where('slug', 'developer');
+    }
 
+    public function scopeAdmin($query){
+        return $query->where('slug', 'admin');
+    }
 }
